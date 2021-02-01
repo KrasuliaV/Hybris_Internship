@@ -2,6 +2,7 @@ package com.ciklum.Hybris_Internship.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -23,6 +24,9 @@ public class Product {
 
     @Transient
     private LocalDateTime dateTime;
+
+    @OneToMany(mappedBy = "product")
+    private List<Product> orderItemList;
 
     public Product() {
     }
@@ -66,6 +70,14 @@ public class Product {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public List<Product> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<Product> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 
     @Override
