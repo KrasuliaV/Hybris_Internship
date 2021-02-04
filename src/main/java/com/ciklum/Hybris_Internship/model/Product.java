@@ -1,6 +1,9 @@
 package com.ciklum.Hybris_Internship.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,13 +13,18 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
+    @Pattern(regexp = "[A-Z][a-z]+",
+            message = "Product name must start with a capital letter followed by one or more lowercase letters")
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+//    @Pattern(regexp = "[1-9][0-9]+",
+//            message = "The 'price' cannot be empty")
+    @Min(1)
     @Column(name = "price")
-    private int price;
+    private double price;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -25,18 +33,19 @@ public class Product {
     @Transient
     private LocalDateTime dateTime;
 
-    @OneToMany(mappedBy = "product")
-    private List<Product> orderItemList;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<OrderItem> orderItemList;
 
     public Product() {
+        dateTime = LocalDateTime.now();
     }
 
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -48,11 +57,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -72,11 +81,11 @@ public class Product {
         this.dateTime = dateTime;
     }
 
-    public List<Product> getOrderItemList() {
+    public List<OrderItem> getOrderItemList() {
         return orderItemList;
     }
 
-    public void setOrderItemList(List<Product> orderItemList) {
+    public void setOrderItemList(List<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
     }
 

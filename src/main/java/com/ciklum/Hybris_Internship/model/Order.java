@@ -1,7 +1,9 @@
 package com.ciklum.Hybris_Internship.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Entity
@@ -10,11 +12,12 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "user_Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private long userId;
+
 
     @Column(name = "status")
     private String status;
@@ -22,22 +25,22 @@ public class Order {
     @Column(name = "created_at")
     private String createdAt;
 
-    @OneToMany(mappedBy = "order")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    private List<OrderItem> orders;
 
     public Order() {
-        createdAt = LocalDateTime.now().toString();
+        createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getUserId() {
+    public long getUserId() {
         return userId;
     }
 
@@ -53,11 +56,11 @@ public class Order {
         this.status = status;
     }
 
-    public List<Order> getOrders() {
+    public List<OrderItem> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> orders) {
+    public void setOrders(List<OrderItem> orders) {
         this.orders = orders;
     }
 

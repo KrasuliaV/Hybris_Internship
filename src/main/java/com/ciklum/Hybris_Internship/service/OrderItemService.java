@@ -1,4 +1,8 @@
 package com.ciklum.Hybris_Internship.service;
 
-public interface OrderItemService {
+import com.ciklum.Hybris_Internship.model.OrderItem;
+
+public interface OrderItemService extends AbstractService<OrderItem>{
+
+
 }
