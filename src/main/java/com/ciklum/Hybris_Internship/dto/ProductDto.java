@@ -3,22 +3,17 @@ package com.ciklum.Hybris_Internship.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.constraints.NotBlank;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ProductDto {
-
-    private long id;
-
-    @NotBlank(message = "The 'name' cannot be empty")
-    private String name;
-
-    private int orderCount;
-
-    private int totalQuantity;
+import java.math.BigDecimal;
 
 
-}
+public interface ProductDto {
+
+    String  getName();
+
+    Integer getCount();
+
+    Integer getSum_quant();
+   }

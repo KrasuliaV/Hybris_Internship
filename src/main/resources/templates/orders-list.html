@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Orders List</title>
+</head>
+<div th:include="header"></div>
+<body>
+<div class="col-md-offset-2 col-sm-8">
+    <h2>Orders List</h2>
+    <form th:action="@{/orders/create}" method="get">
+        <div align="right">
+            <input class="btn-info btn-lg" type="submit" value="Create new Order">
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="text-center">Order Number</th>
+            <th scope="col" class="text-center">Order Id</th>
+            <th scope="col" class="text-center">Created At</th>
+            <th scope="col" class="text-center">Status</th>
+            <th scope="col" colspan="2" class="text-center">Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order, iStat: ${orders}" class="text-center">
+            <th scope="row" th:text="${iStat.index + 1}" class="text-center"></th>
+            <td th:text="${order.getId}"></td>
+            <td th:text="${order.getCreatedAt}"></td>
+            <td th:text="${order.getStatus}"></td>
+            <td>
+                <a th:href="@{|/orders/${order.getId}/update|}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{|/orders/${order.getId}/delete|}">Remove</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

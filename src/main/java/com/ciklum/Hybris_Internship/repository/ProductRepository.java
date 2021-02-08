@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-//    @Query(value = "select products.name, count(product_id), sum(quantity) as sum_quant  from products\n" +
-//            "INNER JOIN order_item oi on products.id = oi.product_id\n" +
-//            "GROUP BY name\n" +
-//            "ORDER BY sum(quantity) DESC", nativeQuery = true)
-//    List<ProductDto> getListOrderedProducts();
+    @Query(value = "select name, count(product_id), sum(quantity) as sum_quant  from products\n" +
+            "INNER JOIN order_item oi on products.id = oi.product_id\n" +
+            "GROUP BY name\n" +
+            "ORDER BY sum(quantity) DESC", nativeQuery = true)
+    List<ProductDto> getListOrderedProducts();
 
     Product getProductByName(String name);
 }

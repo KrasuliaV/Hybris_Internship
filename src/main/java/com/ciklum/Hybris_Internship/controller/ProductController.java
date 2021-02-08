@@ -1,5 +1,6 @@
 package com.ciklum.Hybris_Internship.controller;
 
+import com.ciklum.Hybris_Internship.dto.ProductDto;
 import com.ciklum.Hybris_Internship.model.Product;
 import com.ciklum.Hybris_Internship.model.ProductStatus;
 import com.ciklum.Hybris_Internship.service.impl.ProductServiceImpl;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/product")
@@ -23,6 +26,7 @@ public class ProductController {
 
     @GetMapping("/create")
     public String createProduct(Model model) {
+
         model.addAttribute("product", new Product());
         model.addAttribute("statuses", ProductStatus.values());
         return "create-product";
@@ -55,7 +59,7 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable("id") long id, Model model, @Validated @ModelAttribute("product") Product product, BindingResult result){
+    public String update(@PathVariable("id") long id, Model model, @Validated @ModelAttribute("product") Product product, BindingResult result) {
         if (result.hasErrors()) {
             model.addAttribute("product", product);
             model.addAttribute("statuses", ProductStatus.values());
@@ -80,11 +84,22 @@ public class ProductController {
         return "redirect:/home";
     }
 
-
     @GetMapping("/deleteAll")
     public String deleteAll() {
         productService.deleteAll();
         return "home";
+    }
+
+    @GetMapping("/ordersProduct")
+    public String getOrdersProductList(Model model) {
+//        List<ProductDto> list = productService.getListOrderedProducts();
+//        for (ProductDto someDTO : list) {
+//            System.out.println(someDTO.getName());
+//            System.out.println(someDTO.getCount());
+//            System.out.println(someDTO.getSum_quant());
+//        }
+        model.addAttribute("orProdList", productService.getListOrderedProducts());
+        return "/orders-product-list";
     }
 
 }

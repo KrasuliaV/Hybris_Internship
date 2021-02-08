@@ -39,10 +39,10 @@
         <div class="col-sm-8">
             <select class="form-control" name="status" id="status">
                      <span th:each="status : ${statuses}">
-                           <option th:if="${status.name().equals(product.status)}" th:value="${status}"
+                           <option th:if="${status.name().equals(product.status.name)}" th:value="${status}"
                                    th:selected="${true}"
                                    th:text="${status.name().substring(0, 1) + status.name().substring(1).toLowerCase()}"/>
-                           <option th:unless="${status.name() == product.status}" th:value="${status}"
+                           <option th:unless="${status.name() == product.status.name}" th:value="${status}"
                                    th:text="${status.name().substring(0, 1) + status.name().substring(1).toLowerCase()}"/>
                      </span>
             </select>

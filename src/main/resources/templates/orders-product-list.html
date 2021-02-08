@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Orders Product List</title>
+</head>
+<div th:include="header"></div>
+<body>
+<div class="col-md-offset-2 col-sm-8">
+    <h2>Orders Product List</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="text-center">No</th>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Total Number of Order With Product</th>
+            <th class="text-center">Total Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product, iStat: ${orProdList}" class="text-center">
+            <th scope="row" th:text="${iStat.index + 1}" class="text-center"></th>
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getCount()}"></td>
+            <td th:text="${product.getSum_quant()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

@@ -9,5 +9,5 @@ public interface ProductService extends AbstractService<Product>{
 
     Product getByName(String name);
 
-//    List<ProductDto> getListOrderedProducts();
+    List<ProductDto> getListOrderedProducts();
 }

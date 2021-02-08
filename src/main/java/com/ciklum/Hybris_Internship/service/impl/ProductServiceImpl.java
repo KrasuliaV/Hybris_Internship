@@ -1,6 +1,7 @@
 package com.ciklum.Hybris_Internship.service.impl;
 
 //import com.ciklum.Hybris_Internship.dto.ProductDto;
+import com.ciklum.Hybris_Internship.dto.ProductDto;
 import com.ciklum.Hybris_Internship.model.Product;
 import com.ciklum.Hybris_Internship.repository.ProductRepository;
 import com.ciklum.Hybris_Internship.service.ProductService;
@@ -58,10 +59,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductByName(name);
     }
 
-//    @Override
-//    public List<ProductDto> getListOrderedProducts() {
-//        return getListOrderedProducts();
-//    }
+    @Override
+    public List<ProductDto> getListOrderedProducts() {
+        return productRepository.getListOrderedProducts();
+    }
 
 
 }

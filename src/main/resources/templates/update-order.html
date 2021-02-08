@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Update Order</title>
+</head>
+<div th:include="header"></div>
+<body>
+<div class="col-md-offset-2 col-sm-8">
+    <h2>Update Order</h2>
+    <!--    <form class="form-horizontal" th:action="@{|/orders/${order.getId()/update|}" method="post">-->
+    <!--    <form class="form-horizontal" th:action="@{|/orders/${order.getId()}/update|}" th:object="${order}" method="post">-->
+    <!--        <div class="form-group">-->
+    <!--            <label for="id" class="control-label">Id: </label>-->
+    <!--            <input type="text" class="form-control" id="id" th:value="id" th:field="*{id}" disabled>-->
+    <!--        </div>-->
+    <!--        <div class="form-group">-->
+    <!--            <label for="createdAt" class="control-label">Created At: </label>-->
+    <!--            <input type="text" class="form-control" id="createdAt" th:value="${order.getCreatedAt()}" th:field="*{createdAt}" disabled>-->
+    <!--        </div>-->
+    <!--        <div class="form-group">-->
+    <!--            <label for="userId" class="control-label">User Id: </label>-->
+    <!--            <input type="text" class="form-control" id="userId" th:value="${order.getId()}" th:field="*{userId}" disabled>-->
+    <!--        </div>-->
+    <!--        <div class="form-group">-->
+    <!--            <label for="status" class="control-label">Status: </label>-->
+    <!--            <input type="text" class="form-control" id="status" th:value="${order.getId()}" th:field="*{userId}" disabled>-->
+    <!--&lt;!&ndash;            <select name="status" id="status" class="form-control">&ndash;&gt;-->
+    <!--&lt;!&ndash;                <span th:each="status: ${orderStatuses}">&ndash;&gt;-->
+    <!--&lt;!&ndash;                    <option th:if="${status.name().equals(order.getStatus().name())}" th:value="${status}"&ndash;&gt;-->
+    <!--&lt;!&ndash;                            th:text="${status.name()}" th:selected="true" />&ndash;&gt;-->
+    <!--&lt;!&ndash;                      <option th:unless="${status.name() == order.getStatus().name()}" th:value="${status}"&ndash;&gt;-->
+    <!--&lt;!&ndash;                              th:text="${status.name()}"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;                </span>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;            </select>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <input type="hidden" name="orders" th:value="${order.getOrders()}">&ndash;&gt;-->
+
+    <!--            <input class="btn btn-info" type="submit" value="Update">-->
+    <!--        </div>-->
+
+    <!--    </form>-->
+    <!--    <span>-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Order Id</th>
+            <th scope="col">Created At</th>
+            <th scope="col">User Id</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${order.getId()}"></td>
+            <td th:text="${order.getCreatedAt()}"></td>
+            <td th:text="${order.getUserId()}"></td>
+            <td th:text="${order.getStatus()}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+    <form class="form-horizontal" th:action="@{|/orders/${order.getId()}/add|}" method="get">
+        <div class="form-group">
+            <p>Select Product</p>
+            <select name="product_id" id="products" class="form-control">
+                <!--            <option>Select Product</option>-->
+                <option th:each="product : ${products}" th:value="${product.id}"
+                        th:text="${product.getName()}"></option>
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <input type="number" min="1" value="1"  name="quantity" class="form-control" id="quantity" aria-describedby="emailHelp"
+                   placeholder="Enter quantity">
+        </div>
+        <!--        <label for="quantity">Quantity</label>-->
+
+        <!--    <input class="form-control" type="number" name="quantity">-->
+        <!--        <small class="form-text text-muted" th:if="${#fields.hasErrors('quantity')}"-->
+        <!--               th:errors="*{order.getOrders().quantity}"></small>-->
+        <div class="form-group">
+            <input type="submit" class="btn btn" value="Add">
+        </div>
+
+
+    </form>
+
+    <div th:include="order-items-table">
+
+    </div>
+    <!--        </span>-->
+<!--    <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col" class="text-center">No</th>-->
+<!--            <th scope="col" class="text-center">Product Name</th>-->
+<!--            <th scope="col" class="text-center">Quantity</th>-->
+<!--            <th></th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="orderItem, iStat:${order.orders}" class="text-center">-->
+<!--            <td th:text="${iStat.index + 1}"></td>-->
+<!--            <td th:text="${orderItem.getProduct().getName()}"></td>-->
+<!--            <td th:text="${orderItem.getQuantity()}"></td>-->
+<!--            <td>-->
+<!--                <a th:href="@{|/orders/${orderItem.getId()}/removeOrderItem|}">Remove</a>-->
+<!--            </td>-->
+<!--        </tr>-->
+
+<!--        </tbody>-->
+<!--    </table>-->
+    <div>
+        <form th:action="@{/orders/all}" method="get">
+            <div class="col-sm-offset-2 col-sm-6">
+                <input class="btn btn-info" type="submit" value="Save">
+            </div>
+        </form>
+
+        <!--        <form th:action="@{|/orders/${order.getId()}/delete|}" method="get">-->
+        <!--            <div class="col-sm-offset-2 col-sm-6">-->
+        <!--                <input class="btn btn-info" type="submit" value="Don't save">-->
+        <!--            </div>-->
+        <!--        </form>-->
+    </div>
+</div>
+
+</body>
+</html>

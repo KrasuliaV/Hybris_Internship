@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,9 +19,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
 
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private String status;
+    private OrderStatus status;
 
     @Column(name = "created_at")
     private String createdAt;
@@ -30,6 +31,8 @@ public class Order {
 
     public Order() {
         createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString();
+        orders = new ArrayList<>();
+        status = OrderStatus.NEW;
     }
 
     public long getId() {
@@ -48,11 +51,11 @@ public class Order {
         this.userId = userId;
     }
 
-    public String getStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 
@@ -64,5 +67,26 @@ public class Order {
         this.orders = orders;
     }
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", status='" + status + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+//                ", orders=" + orders +
+                '}';
+    }
 }

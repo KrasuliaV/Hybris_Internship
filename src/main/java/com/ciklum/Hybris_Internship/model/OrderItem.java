@@ -1,6 +1,7 @@
 package com.ciklum.Hybris_Internship.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "order_item")
@@ -18,6 +19,7 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Min(1)
     @Column(name = "quantity")
     private int quantity;
 
@@ -52,7 +54,19 @@ public class OrderItem {
         return quantity;
     }
 
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", order=" + order +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
+
     public void setQuantity(int quantity) {
+
+
         this.quantity = quantity;
     }
 }

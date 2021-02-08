@@ -7,6 +7,7 @@ import com.ciklum.Hybris_Internship.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -21,17 +22,23 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItem create(OrderItem orderItem) {
-        return null;
+        if (orderItem == null)
+            throw new NullPointerException("Order can't be null");
+        return orderItemRepository.saveAndFlush(orderItem);
     }
 
     @Override
     public OrderItem readById(long id) {
-        return null;
+        return orderItemRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("ProductItem with " + id + "not found"));
     }
 
     @Override
     public OrderItem update(OrderItem orderItem) {
-        return null;
+        if (orderItem != null) {
+            readById(orderItem.getId());
+            return orderItemRepository.saveAndFlush(orderItem);
+        }
+        throw new NullPointerException("ProductItem can't be null");
     }
 
     @Override

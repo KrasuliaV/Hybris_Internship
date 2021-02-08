@@ -1,0 +1,23 @@
+<div xmlns:th="http://www.thymeleaf.org">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col" class="text-center">No</th>
+            <th scope="col" class="text-center">Product Name</th>
+            <th scope="col" class="text-center">Quantity</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderItem, iStat:${order.orders}" class="text-center">
+            <td th:text="${iStat.index + 1}"></td>
+            <td th:text="${orderItem.getProduct().getName()}"></td>
+            <td th:text="${orderItem.getQuantity()}"></td>
+            <td>
+                <a th:href="@{|/orders/${orderItem.getId()}/removeOrderItem|}">Remove</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
