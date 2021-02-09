@@ -49,6 +49,7 @@
             <th scope="col">Created At</th>
             <th scope="col">User Id</th>
             <th scope="col">Status</th>
+            <th scope="col">Order Total Price</th>
         </tr>
         </thead>
         <tbody>
@@ -57,6 +58,7 @@
             <td th:text="${order.getCreatedAt()}"></td>
             <td th:text="${order.getUserId()}"></td>
             <td th:text="${order.getStatus()}"></td>
+            <td th:text="${totalOrderPrice}"></td>
         </tr>
         </tbody>
 

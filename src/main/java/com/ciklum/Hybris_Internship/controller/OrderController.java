@@ -3,19 +3,13 @@ package com.ciklum.Hybris_Internship.controller;
 import com.ciklum.Hybris_Internship.model.Order;
 import com.ciklum.Hybris_Internship.model.OrderItem;
 import com.ciklum.Hybris_Internship.model.OrderStatus;
-import com.ciklum.Hybris_Internship.model.Product;
 import com.ciklum.Hybris_Internship.service.OrderItemService;
 import com.ciklum.Hybris_Internship.service.OrderService;
 import com.ciklum.Hybris_Internship.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/orders")
@@ -70,17 +64,13 @@ public class OrderController {
         OrderItem orderItem = new OrderItem();
         orderItem.setOrder(order);
         orderItem.setProduct(productService.readById(productId));
-//        if (quantity == 0){
-//            quantity = 1;
-//        }
         orderItem.setQuantity(quantity);
         orderItem = orderItemService.create(orderItem);
         order.getOrders().add(orderItem);
         orderService.update(order);
-//        System.out.println(order.getStatus());
-        if (order.getStatus().name().equals(OrderStatus.NEW.name())){
+        if (order.getStatus().name().equals(OrderStatus.NEW.name())) {
             return "redirect:/orders/" + id + "/read";
-        }else{
+        } else {
             model.addAttribute("order", orderService.update(order));
             model.addAttribute("products", productService.getAll());
             return "/update-order";
@@ -89,12 +79,12 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/removeOrderItem")
-    public String removeOrderItem(@PathVariable long id, Model model){
+    public String removeOrderItem(@PathVariable long id, Model model) {
         Order order = orderService.readById(orderItemService.readById(id).getOrder().getId());
         orderItemService.delete(id);
-        if (order.getStatus().name().equals(OrderStatus.NEW.name())){
+        if (order.getStatus().name().equals(OrderStatus.NEW.name())) {
             return "redirect:/orders/" + id + "/read";
-        }else{
+        } else {
             model.addAttribute("order", orderService.update(order));
             model.addAttribute("products", productService.getAll());
             return "/update-order";
@@ -102,21 +92,21 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/update")
-    public String updateOrder(@PathVariable long id, Model model){
+    public String updateOrder(@PathVariable long id, Model model) {
         Order order = orderService.readById(id);
-        if (order.getStatus().equals(OrderStatus.NEW)){
+        if (order.getStatus().equals(OrderStatus.NEW)) {
             order.setStatus(OrderStatus.IN_PROGRESS);
         }
+        model.addAttribute("totalOrderPrice", orderService.getOrderTotalPrice(id));
         model.addAttribute("order", orderService.update(order));
         model.addAttribute("products", productService.getAll());
-//        model.addAttribute("orderStatuses", OrderStatus.values());
         return "/update-order";
     }
 
     @PostMapping("/{id}/update")
     public String updateOrder(@PathVariable long id,
                               @ModelAttribute("order") Order order,
-                              Model model){
+                              Model model) {
         order.setOrders(orderService.readById(id).getOrders());
         orderService.update(orderService.readById(id));
         model.addAttribute("orders", orderService.getAll());
@@ -127,6 +117,13 @@ public class OrderController {
     public String deleteOrder(@PathVariable long id, Model model) {
         orderService.delete(id);
         return "redirect:/orders/all";
+    }
+
+    @GetMapping("/information")
+    public String ordersInformation(Model model){
+        model.addAttribute("orderDtos", orderService.getOrderInformation());
+        return "/read-order";
+
     }
 
 }

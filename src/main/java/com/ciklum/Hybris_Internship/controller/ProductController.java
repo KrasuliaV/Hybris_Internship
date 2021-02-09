@@ -85,8 +85,11 @@ public class ProductController {
     }
 
     @GetMapping("/deleteAll")
-    public String deleteAll() {
-        productService.deleteAll();
+    public String deleteAll(@RequestParam("password") String password, Model model) {
+        if(password.equals("1111")){
+            productService.deleteAll();
+        }
+        model.addAttribute("products", productService.getAll());
         return "home";
     }
 

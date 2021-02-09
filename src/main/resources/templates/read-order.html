@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Orders Information</title>
+</head>
+<div th:include="header"></div>
+<body>
+<div class="col-md-offset-2 col-sm-8">
+    <h2>Orders Information</h2>
+    <table class="table">
+        <thead>
+        <th scope="col">Order Id</th>
+        <th scope="col">Sum Quantity Of One Product</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product Total Price</th>
+        <th scope="col">Order's creation time</th>
+        </thead>
+        <tbody>
+        <tr th:each="orderDto: ${orderDtos}">
+            <td th:text="${orderDto.getId()}"></td>
+            <td th:text="${orderDto.getQuant_sum()}"></td>
+            <td th:text="${orderDto.getName()}"></td>
+            <td th:text="${orderDto.getProd_total_price()}"></td>
+            <td th:text="${orderDto.getCreated_at()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

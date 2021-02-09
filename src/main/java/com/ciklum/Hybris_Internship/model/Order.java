@@ -1,5 +1,8 @@
 package com.ciklum.Hybris_Internship.model;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
@@ -15,8 +18,10 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //    @Column(name = "user_Id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial",name = "user_Id")
+    @Generated(GenerationTime.INSERT)
     private long userId;
 
     @Enumerated(EnumType.STRING)

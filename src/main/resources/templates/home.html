@@ -40,9 +40,17 @@
         </tbody>
     </table>
     <form th:action="@{/product/deleteAll}" method="get">
-        <div align="right">
-            <input class="btn-info btn-lg" type="submit" value="Delete All Products">
+        <div class="input-group mb-3">
+            <div align="right">
+                <input class="form-control" type="text" placeholder="Enter password for delete all products"
+                       name="password">
+            </div>
+            <br>
+            <div align="right">
+                <input class="btn-info btn-lg" type="submit" value="Delete All Products">
+            </div>
         </div>
+
     </form>
 
 </div>
