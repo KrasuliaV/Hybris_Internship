@@ -41,12 +41,6 @@ public class OrderController {
         return "/create-order";
     }
 
-//    @PostMapping("/create")
-//    public String createOrder(Model model) {
-//
-//        return "/";
-//    }
-
     @GetMapping("/{id}/read")
     public String read(@PathVariable long id, Model model) {
         Order order = orderService.readById(id);
@@ -123,7 +117,6 @@ public class OrderController {
     public String ordersInformation(Model model){
         model.addAttribute("orderDtos", orderService.getOrderInformation());
         return "/read-order";
-
     }
 
 }

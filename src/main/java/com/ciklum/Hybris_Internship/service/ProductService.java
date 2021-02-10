@@ -5,7 +5,9 @@ import com.ciklum.Hybris_Internship.model.Product;
 
 import java.util.List;
 
-public interface ProductService extends AbstractService<Product>{
+public interface ProductService extends AbstractService<Product> {
+
+    void deleteAll();
 
     Product getByName(String name);
 

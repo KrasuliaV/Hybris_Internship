@@ -3,14 +3,11 @@ package com.ciklum.Hybris_Internship.service.impl;
 import com.ciklum.Hybris_Internship.dto.OrderDto;
 import com.ciklum.Hybris_Internship.model.Order;
 import com.ciklum.Hybris_Internship.repository.OrderRepository;
-import com.ciklum.Hybris_Internship.repository.ProductRepository;
 import com.ciklum.Hybris_Internship.service.OrderService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -53,16 +50,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> getOrderInformation(){
+    public List<OrderDto> getOrderInformation() {
         return orderRepository.getOrderInformation();
     }
 
     @Override
-    public  int getOrderTotalPrice(long id){
-        if(readById(id).getOrders().size() > 0){
+    public int getOrderTotalPrice(long id) {
+        if (readById(id).getOrders().size() > 0) {
             return orderRepository.getOrderTotalPrice(id);
-        }else return 0;
-            }
+        } else return 0;
+    }
 
 //    public Map<Long, Integer> getTotalPriceForEachOrder(){
 //        Map<Long, Integer> totalPriceMap= new LinkedHashMap<>();

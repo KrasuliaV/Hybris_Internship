@@ -1,63 +1,86 @@
 package com.ciklum.Hybris_Internship.model;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
-    @Test
-    void setId() {
+    private static Product product;
 
+    @BeforeAll
+    static void init() {
+        product = new Product();
     }
 
     @Test
-    void getName() {
+    void testSetAndGetId() {
+        long id = 1L;
+
+        product.setId(id);
+
+        assertEquals(id, product.getId());
+    }
+
+    @Test
+    void testSetAndGetName() {
         String name = "New name";
-        Product product = new Product();
         product.setName(name);
 
         assertEquals(name, product.getName());
     }
 
     @Test
-    void setName() {
+    void testSetAndGetPrice() {
+        double price = 500.0;
+
+        product.setPrice(price);
+
+        assertEquals(price, product.getPrice());
     }
 
     @Test
-    void getPrice() {
+    void testSetAndGetStatus() {
+        product.setStatus(ProductStatus.IN_STOCK);
+
+        assertEquals(ProductStatus.IN_STOCK, product.getStatus());
     }
 
     @Test
-    void setPrice() {
+    void testSetAndGetDateTime() {
+        LocalDateTime time = LocalDateTime.now();
+
+        product.setDateTime(time);
+
+        assertEquals(time, product.getDateTime());
     }
 
     @Test
-    void getStatus() {
-    }
+    void testSetAndGetOrderItemList() {
+        OrderItem orderItem = new OrderItem();
+        List<OrderItem> orderItemList = new ArrayList<>();
+        orderItemList.add(orderItem);
 
-    @Test
-    void setStatus() {
-    }
+        product.setOrderItemList(orderItemList);
 
-    @Test
-    void getDateTime() {
-    }
-
-    @Test
-    void setDateTime() {
-    }
-
-    @Test
-    void getOrderItemList() {
-    }
-
-    @Test
-    void setOrderItemList() {
+        assertEquals(orderItemList.size(), product.getOrderItemList().size());
     }
 
     @Test
     void testToString() {
+        LocalDateTime time = LocalDateTime.now();
+        String productToString = "Product{id=1, name='New name', price=500.0, status=IN_STOCK, dateTime=" +
+                time + '}';
+        product.setId(1L);
+        product.setName("New name");
+        product.setPrice(500);
+        product.setStatus(ProductStatus.IN_STOCK);
+        product.setDateTime(time);
+        assertEquals(productToString, product.toString());
     }
 }

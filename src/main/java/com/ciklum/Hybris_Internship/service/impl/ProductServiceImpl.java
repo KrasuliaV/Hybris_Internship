@@ -1,6 +1,7 @@
 package com.ciklum.Hybris_Internship.service.impl;
 
 //import com.ciklum.Hybris_Internship.dto.ProductDto;
+
 import com.ciklum.Hybris_Internship.dto.ProductDto;
 import com.ciklum.Hybris_Internship.model.Product;
 import com.ciklum.Hybris_Internship.repository.ProductRepository;
@@ -50,7 +51,8 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-    public void deleteAll(){
+    @Override
+    public void deleteAll() {
         productRepository.deleteAll();
     }
 

@@ -18,9 +18,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //    @Column(name = "user_Id")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "serial",name = "user_Id")
+    @Column(columnDefinition = "serial", name = "user_Id")
     @Generated(GenerationTime.INSERT)
     private long userId;
 
@@ -91,7 +89,6 @@ public class Order {
                 ", userId=" + userId +
                 ", status='" + status + '\'' +
                 ", createdAt='" + createdAt + '\'' +
-//                ", orders=" + orders +
                 '}';
     }
 }

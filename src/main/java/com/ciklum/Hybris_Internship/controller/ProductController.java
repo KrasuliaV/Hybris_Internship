@@ -1,9 +1,8 @@
 package com.ciklum.Hybris_Internship.controller;
 
-import com.ciklum.Hybris_Internship.dto.ProductDto;
 import com.ciklum.Hybris_Internship.model.Product;
 import com.ciklum.Hybris_Internship.model.ProductStatus;
-import com.ciklum.Hybris_Internship.service.impl.ProductServiceImpl;
+import com.ciklum.Hybris_Internship.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductServiceImpl productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -95,12 +92,6 @@ public class ProductController {
 
     @GetMapping("/ordersProduct")
     public String getOrdersProductList(Model model) {
-//        List<ProductDto> list = productService.getListOrderedProducts();
-//        for (ProductDto someDTO : list) {
-//            System.out.println(someDTO.getName());
-//            System.out.println(someDTO.getCount());
-//            System.out.println(someDTO.getSum_quant());
-//        }
         model.addAttribute("orProdList", productService.getListOrderedProducts());
         return "/orders-product-list";
     }

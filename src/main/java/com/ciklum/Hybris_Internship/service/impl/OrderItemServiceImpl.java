@@ -2,7 +2,6 @@ package com.ciklum.Hybris_Internship.service.impl;
 
 import com.ciklum.Hybris_Internship.model.OrderItem;
 import com.ciklum.Hybris_Internship.repository.OrderItemRepository;
-import com.ciklum.Hybris_Internship.repository.ProductRepository;
 import com.ciklum.Hybris_Internship.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +12,10 @@ import java.util.List;
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
 
-    private OrderItemRepository  orderItemRepository;
+    private final OrderItemRepository orderItemRepository;
 
     @Autowired
-    public OrderItemServiceImpl(OrderItemRepository  orderItemRepository){
+    public OrderItemServiceImpl(OrderItemRepository orderItemRepository) {
         this.orderItemRepository = orderItemRepository;
     }
 

@@ -20,8 +20,6 @@ public class Product {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-//    @Pattern(regexp = "[1-9][0-9]+",
-//            message = "The 'price' cannot be empty")
     @Min(1)
     @Column(name = "price")
     private double price;
