@@ -24,58 +24,30 @@
             <input type="number" min="1" value="1" name="quantity" class="form-control"
                    id="quantity" aria-describedby="emailHelp"
                    placeholder="Enter quantity">
-<!--            <small class="form-text text-muted" th:if="${#fields.hasErrors('price')}"-->
-<!--                   th:errors="*{price}"></small>-->
         </div>
-<!--        <label for="quantity">Quantity</label>-->
 
-<!--    <input class="form-control" type="number" name="quantity">-->
-<!--        <small class="form-text text-muted" th:if="${#fields.hasErrors('quantity')}"-->
-<!--               th:errors="*{order.getOrders().quantity}"></small>-->
         <div class="form-group">
             <input type="submit" class="btn btn" value="Add">
         </div>
 
     </form>
-    <div th:include="order-items-table">
 
-    </div>
-    <!--    <table class="table">-->
-    <!--        <thead>-->
-    <!--        <tr>-->
-    <!--            <th scope="col" class="text-center">No</th>-->
-    <!--            <th scope="col" class="text-center">Product Name</th>-->
-    <!--            <th scope="col" class="text-center">Quantity</th>-->
-    <!--            <th></th>-->
-    <!--        </tr>-->
-    <!--        </thead>-->
-    <!--        <tbody>-->
-    <!--        <tr th:each="orderItem, iStat:${order.orders}" class="text-center">-->
-    <!--            <td th:text="${iStat.index + 1}"></td>-->
-    <!--            <td th:text="${orderItem.getProduct().getName()}"></td>-->
-    <!--            <td th:text="${orderItem.getQuantity()}"></td>-->
-    <!--            <td>-->
-    <!--                <a th:href="@{|/orders/${orderItem.getId()}/removeOrderItem|}">Remove</a>-->
-    <!--            </td>-->
-    <!--        </tr>-->
+    <div th:include="order-items-table"></div>
 
-    <!--        </tbody>-->
-    <!--    </table>-->
-
-
-</div>
-    <div>
-        <form th:action="@{/orders/all}" method="get">
-            <div class="col-sm-offset-2 col-sm-6">
+    <div class="btn-group btn-group-lg" role="group">
+        <form th:action="@{/orders/all}" method="get" class="btn-group">
+            <div>
                 <input class="btn btn-info" type="submit" value="Save">
             </div>
         </form>
 
-        <form th:action="@{|/orders/${order.getId()}/delete|}" method="get">
-            <div class="col-sm-offset-2 col-sm-6">
+        <form th:action="@{|/orders/${order.getId()}/delete|}" method="get" class="btn-group">
+            <div>
                 <input class="btn btn-info" type="submit" value="Don't save">
             </div>
         </form>
     </div>
+</div>
+
 </body>
 </html>

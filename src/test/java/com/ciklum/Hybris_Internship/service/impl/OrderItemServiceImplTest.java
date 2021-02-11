@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
@@ -26,43 +30,73 @@ class OrderItemServiceImplTest {
     static OrderItem orderItem;
 
     @BeforeAll
-    private static void init(){
+    private static void init() {
         orderItem = new OrderItem();
         orderItem.setId(3L);
         orderItem.setQuantity(550);
     }
 
     @Test
-    void create() {
+    void createTest() {
         when(orderItemRepository.saveAndFlush(any(OrderItem.class))).thenReturn(orderItem);
 
         OrderItem actual = orderItemService.create(orderItem);
 
         assertEquals(orderItem, actual);
 
-        verify(orderItemRepository,times(1)).saveAndFlush(orderItem);
+        verify(orderItemRepository, times(1)).saveAndFlush(orderItem);
     }
 
     @Test
-    void createTestWithNullEntity(){
-        when(orderItemRepository.saveAndFlush(null)).thenThrow(new NullPointerException());
+    void createTestWithNullEntity() {
         assertThrows(NullPointerException.class, () -> orderItemService.create(null));
-        verify(orderItemRepository, times(1)).saveAndFlush(null);
     }
 
     @Test
-    void readById() {
+    void readByIdTest() {
+        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(orderItem));
+        OrderItem actual = orderItemService.readById(1L);
+
+        assertEquals(orderItem, actual);
+        verify(orderItemRepository, times(1)).findById(1L);
     }
 
     @Test
-    void update() {
+    void updateTest() {
+        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(orderItem));
+        when(orderItemRepository.saveAndFlush(any(OrderItem.class))).thenReturn(orderItem);
+
+        OrderItem actual = orderItemService.update(orderItem);
+
+        assertEquals(orderItem, actual);
+        verify(orderItemRepository, times(1)).findById(3L);
+        verify(orderItemRepository, times(1)).saveAndFlush(orderItem);
+    }
+
+    @Test
+    void updateTestWithNullEntity() {
+        assertThrows(NullPointerException.class, () -> orderItemService.update(null));
     }
 
     @Test
     void delete() {
+        when(orderItemRepository.findById(anyLong())).thenReturn(Optional.of(orderItem));
+        doNothing().when(orderItemRepository).delete(any(OrderItem.class));
+
+        orderItemService.delete(3l);
+
+        verify(orderItemRepository, times(1)).findById(anyLong());
+        verify(orderItemRepository, times(1)).delete(orderItem);
     }
 
     @Test
     void getAll() {
+        List<OrderItem> expected = Arrays.asList(orderItem);
+        when(orderItemRepository.findAll()).thenReturn(expected);
+
+        List<OrderItem> actual = orderItemService.getAll();
+
+        assertEquals(expected.size(), actual.size());
+        verify(orderItemRepository, times(1)).findAll();
     }
 }

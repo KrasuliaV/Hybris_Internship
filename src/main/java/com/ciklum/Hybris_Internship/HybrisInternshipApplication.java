@@ -9,8 +9,5 @@ public class HybrisInternshipApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HybrisInternshipApplication.class, args);
-
     }
-
-
 }

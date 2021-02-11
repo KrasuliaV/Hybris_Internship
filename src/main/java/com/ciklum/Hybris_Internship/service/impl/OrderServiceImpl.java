@@ -61,9 +61,4 @@ public class OrderServiceImpl implements OrderService {
         } else return 0;
     }
 
-//    public Map<Long, Integer> getTotalPriceForEachOrder(){
-//        Map<Long, Integer> totalPriceMap= new LinkedHashMap<>();
-//        getAll().forEach(order -> totalPriceMap.put(order.getId(), orderRepository.getOrderTotalPrice((order.getId()))));
-//        return totalPriceMap;
-//    }
 }
