@@ -12,14 +12,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order extends AbstractEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    @Column(columnDefinition = "serial", name = "user_Id")
-    @Generated(GenerationTime.INSERT)
+    @Column(name = "user_Id")
     private long userId;
 
     @Enumerated(EnumType.STRING)
@@ -36,14 +31,7 @@ public class Order {
         createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString();
         orders = new ArrayList<>();
         status = OrderStatus.NEW;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        userId = (long) (Math.random() * 50) + 1;
     }
 
     public long getUserId() {
@@ -85,7 +73,7 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", userId=" + userId +
                 ", status='" + status + '\'' +
                 ", createdAt='" + createdAt + '\'' +

@@ -2,18 +2,13 @@ package com.ciklum.Hybris_Internship.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class Product extends AbstractEntity{
 
     @Pattern(regexp = "[A-Z][a-z]+",
             message = "Product name must start with a capital letter followed by one or more lowercase letters")
@@ -35,16 +30,9 @@ public class Product {
     private List<OrderItem> orderItemList;
 
     public Product() {
+        super();
+
         dateTime = LocalDateTime.now();
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -90,7 +78,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", status=" + status +

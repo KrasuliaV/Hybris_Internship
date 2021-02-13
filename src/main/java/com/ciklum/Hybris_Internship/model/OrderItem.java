@@ -5,11 +5,7 @@ import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "order_item")
-public class OrderItem {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+public class OrderItem extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
@@ -24,14 +20,6 @@ public class OrderItem {
     private int quantity;
 
     public OrderItem() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Order getOrder() {
@@ -54,19 +42,18 @@ public class OrderItem {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public String toString() {
         return "OrderItem{" +
-                "id=" + id +
+                "id=" + super.getId() +
                 ", order=" + order.getId() +
                 ", product=" + product.getName() +
                 ", quantity=" + quantity +
                 '}';
     }
 
-    public void setQuantity(int quantity) {
-
-
-        this.quantity = quantity;
-    }
 }

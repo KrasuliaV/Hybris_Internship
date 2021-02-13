@@ -69,7 +69,6 @@ public class OrderController {
             model.addAttribute("products", productService.getAll());
             return "/update-order";
         }
-
     }
 
     @GetMapping("/{id}/removeOrderItem")
@@ -114,7 +113,7 @@ public class OrderController {
     }
 
     @GetMapping("/information")
-    public String ordersInformation(Model model){
+    public String ordersInformation(Model model) {
         model.addAttribute("orderDtos", orderService.getOrderInformation());
         return "/read-order";
     }
