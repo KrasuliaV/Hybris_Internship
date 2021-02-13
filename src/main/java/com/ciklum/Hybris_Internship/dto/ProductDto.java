@@ -4,7 +4,7 @@ public interface ProductDto {
 
     String  getName();
 
-    Integer getCount();
+    Integer getNumber_orders();
 
     Integer getSum_quant();
    }

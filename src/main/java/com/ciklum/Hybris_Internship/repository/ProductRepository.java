@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query(value = "select name, count(product_id), sum(quantity) as sum_quant  from products\n" +
+    @Query(value = "select name, count(product_id) as number_orders, sum(quantity) as sum_quant  from products\n" +
             "INNER JOIN order_item oi on products.id = oi.product_id\n" +
             "GROUP BY name\n" +
             "ORDER BY sum(quantity) DESC", nativeQuery = true)

@@ -22,7 +22,7 @@
         <tr th:each="product, iStat: ${orProdList}" class="text-center">
             <th scope="row" th:text="${iStat.index + 1}" class="text-center"></th>
             <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getCount()}"></td>
+            <td th:text="${product.getNumber_orders()}"></td>
             <td th:text="${product.getSum_quant()}"></td>
         </tr>
         </tbody>

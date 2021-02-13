@@ -1,6 +1,7 @@
 package com.ciklum.Hybris_Internship.integration_test;
 
 import com.ciklum.Hybris_Internship.model.Order;
+import com.ciklum.Hybris_Internship.model.OrderStatus;
 import com.ciklum.Hybris_Internship.service.OrderService;
 import com.ciklum.Hybris_Internship.service.ProductService;
 import org.hamcrest.Matchers;
@@ -29,6 +30,21 @@ public class OrderIntegrationTests {
 
     @Test
     @Transactional
+    public void getAllOrderTest() throws Exception {
+        Order order = new Order();
+        int sizeBeforeCreation = orderService.getAll().size();
+        order = orderService.create(order);
+        int sizeAfterCreation = orderService.getAll().size();
+        mockMvc.perform(MockMvcRequestBuilders.get("/orders/all"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("orders"))
+                .andExpect(MockMvcResultMatchers.model().attribute("orders", orderService.getAll()));
+
+        Assertions.assertNotEquals(sizeBeforeCreation, sizeAfterCreation);
+    }
+
+    @Test
+    @Transactional
     public void createOrderGetRequestTest() throws Exception {
         Order order = new Order();
         long initialId = order.getId();
@@ -43,7 +59,19 @@ public class OrderIntegrationTests {
                 .andExpect(MockMvcResultMatchers.model().attribute("products", productService.getAll()));
 
         Assertions.assertNotEquals(initialId, afterCreateId);
+    }
 
+    @Test
+    @Transactional
+    public void readOrderGetRequestTest() throws Exception {
+        Order order = new Order();
+        order = orderService.create(order);
+        mockMvc.perform(MockMvcRequestBuilders.get("/orders/{id}/read", order.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("order"))
+                .andExpect(MockMvcResultMatchers.model().attribute("order", orderService.readById(order.getId())))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("products"))
+                .andExpect(MockMvcResultMatchers.model().attribute("products", productService.getAll()));
     }
 
 }
