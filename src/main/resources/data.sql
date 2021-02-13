@@ -42,14 +42,14 @@ VALUES ('Banana', 400, 'OUT_OF_STOCK');
 INSERT into products (name, price, status)
 VALUES ('Nut', 600, 'OUT_OF_STOCK');
 
-INSERT into orders (user_id, status)
-VALUES (1, 'NEW');
-INSERT into orders (user_id, status)
-VALUES (2, 'PAID');
-INSERT into orders (user_id, status)
-VALUES (3, 'IN_PROGRESS');
-INSERT into orders (user_id, status)
-VALUES (4, 'MUST_DELETE');
+INSERT into orders (user_id, status, created_at)
+VALUES (1, 'NEW', '2021-02-13 12:55');
+INSERT into orders (user_id, status, created_at)
+VALUES (2, 'PAID', '2021-02-13 13:19');
+INSERT into orders (user_id, status, created_at)
+VALUES (3, 'IN_PROGRESS', '2021-02-13 13:20');
+INSERT into orders (user_id, status, created_at)
+VALUES (4, 'MUST_DELETE', '2021-02-13 13:47');
 
 INSERT into order_item (order_id, product_id, quantity)
 VALUES (2, 2, 1000);
@@ -57,3 +57,4 @@ INSERT into order_item (order_id, product_id, quantity)
 VALUES (2, 1, 1200);
 INSERT into order_item (order_id, product_id, quantity)
 VALUES (3, 1, 1500);
+
