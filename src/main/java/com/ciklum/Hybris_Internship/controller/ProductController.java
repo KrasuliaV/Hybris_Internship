@@ -21,6 +21,12 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping({"/all"})
+    public String home(Model model) {
+        model.addAttribute("products", productService.getAll());
+        return "products-list";
+    }
+
     @GetMapping("/create")
     public String createProduct(Model model) {
 
@@ -45,7 +51,7 @@ public class ProductController {
         System.out.println(product);
         productService.create(product);
         model.addAttribute("products", productService.getAll());
-        return "home";
+        return "products-list";
     }
 
     @GetMapping("/{id}/update")
@@ -68,17 +74,16 @@ public class ProductController {
             model.addAttribute("statuses", ProductStatus.values());
             return "update-product";
         }
-        System.out.println(product);
         productService.update(product);
         model.addAttribute("products", productService.getAll());
-        return "home";
+        return "products-list";
     }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable("id") long id, Model model) {
         productService.delete(id);
         model.addAttribute("products", productService.getAll());
-        return "redirect:/home";
+        return "redirect:/products-list";
     }
 
     @GetMapping("/deleteAll")
@@ -87,7 +92,7 @@ public class ProductController {
             productService.deleteAll();
         }
         model.addAttribute("products", productService.getAll());
-        return "home";
+        return "products-list";
     }
 
     @GetMapping("/ordersProduct")

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<div th:replace="header"></div>
+<body>
+<div class="col-md-offset-2 col-sm-8">
+    <h2 class="text-center">Product List</h2>
+    <div>
+        <form th:action="@{/product/create}" method="get" align="right">
+            <input class="btn-info btn-lg" type="submit" value="Create new Product">
+        </form>
+    </div>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col" class="text-center">No</th>
+                <th scope="col" class="text-center">Name</th>
+                <th scope="col" class="text-center">Price</th>
+                <th scope="col" class="text-center">Status</th>
+                <th scope="col" colspan="2" class="text-center">Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product, iStat: ${products}" class="text-center">
+                <th class="text-center" scope="row" th:text="${iStat.index + 1}"></th>
+                <td th:text="${product.getName()}"></td>
+                <td th:text="${product.getPrice()}"></td>
+                <td th:text="${product.getStatus()}"></td>
+                <td>
+                    <a th:href="@{|/product/${product.getId}/update|}">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{|/product/${product.getId}/delete|}">Remove</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <table class="table">
+        <form  th:action="@{/product/deleteAll}" method="get" class="input-group">
+            <tr>
+                <td class="text-center">
+                    <input class="form-control" type="text"
+                           placeholder="Enter password if you want to delete all products"
+                           name="password" >
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    <input class="btn-info btn-lg" type="submit" value="Delete All Products">
+                </td>
+            </tr>
+        </form>
+    </table>
+<!--    <div align="right" class="button-group pull-right" role="group">-->
+<!--        <form  th:action="@{/product/deleteAll}" method="get" class="input-group">-->
+<!--            <input class="form-control" type="text" placeholder="Enter password for delete all products"-->
+<!--                   name="password" size="5em">-->
+<!--            <input class="btn-info btn-lg" type="submit" value="Delete All Products">-->
+<!--        </form>-->
+<!--    </div>-->
+
+</div>
+</body>
+</html>

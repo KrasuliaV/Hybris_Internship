@@ -7,6 +7,7 @@
 </head>
 <body>
 <div th:replace="header"></div>
+<h2 class="text-center">Create New Product</h2>
 <form class="form-horizontal" th:action="@{/product/create}" method="post" th:object="${product}">
     <div class="form-group">
         <label class="col-sm-2 control-label" for="Name">Name:</label>

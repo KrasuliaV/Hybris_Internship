@@ -8,17 +8,17 @@
 <div th:include="header"></div>
 <body>
 <div class="col-md-offset-2 col-sm-8">
-    <h2>Orders Information</h2>
+    <h2 class="text-center">Orders Information</h2>
     <table class="table">
         <thead>
-        <th scope="col">Order Id</th>
-        <th scope="col">Sum Quantity Of One Product</th>
-        <th scope="col">Product Name</th>
-        <th scope="col">Product Total Price</th>
-        <th scope="col">Order's creation time</th>
+        <th scope="col" class="text-center">Order Id</th>
+        <th scope="col" class="text-center">Sum Quantity Of One Product</th>
+        <th scope="col" class="text-center">Product Name</th>
+        <th scope="col" class="text-center">Product Total Price</th>
+        <th scope="col" class="text-center">Order's creation time</th>
         </thead>
         <tbody>
-        <tr th:each="orderDto: ${orderDtos}">
+        <tr th:each="orderDto: ${orderDtos}" class="text-center">
             <td th:text="${orderDto.getId()}"></td>
             <td th:text="${orderDto.getQuant_sum()}"></td>
             <td th:text="${orderDto.getName()}"></td>
