@@ -1,11 +1,21 @@
 package com.ciklum.Hybris_Internship.model;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,6 +43,27 @@ class ProductTest {
         product.setName(name);
 
         assertEquals(name, product.getName());
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideInvalidProductName")
+    void constraintInvalidProductName(String input, String errorValue) {
+        product.setName(input);
+        product.setPrice(50);
+        product.setStatus(ProductStatus.IN_STOCK);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Product>> violations = validator.validate(product);
+        assertEquals(errorValue, violations.iterator().next().getInvalidValue());
+    }
+
+    private static Stream<Arguments> provideInvalidProductName() {
+        return Stream.of(
+                Arguments.of("invalidName", "invalidName"),
+                Arguments.of("123456", "123456"),
+                Arguments.of("", "")
+        );
     }
 
     @Test
